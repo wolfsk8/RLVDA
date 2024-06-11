@@ -33,7 +33,7 @@ public class DataBaseTest {
             e.printStackTrace();
         }
         List<obj_cargo> list_cargo = new ArrayList<>();
-            list_cargo = Consultas_listado.listarCargos(2, 0, "SECRETARIA", " ", 0);
+            list_cargo = Consultas_listado.listarCargos(0, 0, "SECRETARIA", " ", 0);
             System.out.println("Usando un bucle foreach:");
         for (obj_cargo cargo : list_cargo) {
         System.out.println(cargo.getCargo()+", "+cargo.getDescripcion());

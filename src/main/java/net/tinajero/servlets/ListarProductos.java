@@ -14,7 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
 
 /**
  *
@@ -25,17 +27,23 @@ public class ListarProductos extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //configuración de la respuesta
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        List<obj_producto> list_productos = Consultas_listado.GestionProductos(0, 0, LEGACY_DO_HEAD, 0, 0, BigDecimal.ZERO, 0);
+        // Obtener la lista de productos desde la consulta
+        List<obj_producto> list_producto = new ArrayList<>();
+        list_producto = Consultas_listado.GestionProductos(0, 0, " ", 0, 0, BigDecimal.ZERO, 0);
         //convertir la lista de prductos a JSON
         Gson gson = new Gson();
-        String json = gson.toJson(list_productos);
+        String json = gson.toJson(list_producto);
         
-        PrintWriter out =
-        response.getWriter();
-        out.print(json);
-        out.flush();
+         // Escribir la respuesta JSON en el cuerpo de la respuesta
+        try (PrintWriter out = response.getWriter()) {
+            out.print(json);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();  // Imprimir cualquier excepción que ocurra
+        }
         
     }
 

@@ -12,11 +12,21 @@ import java.sql.SQLException;
  * @author juan
  */
 public class DatabaseConexion {
-    private static final String URL ="jdbc:postgresql://localhost:5432/rlvd";
-    private static final String USER="admin";
-    private static final String PASSWORD="admin";
     
+    
+       
     public static Connection getConnection() throws SQLException {
+        
+        // Registrar el driver JDBC
+        try {
+            Class.forName("org.postgresql.Driver"); // Reemplaza con el driver correspondiente a tu base de datos
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("No suitable driver found");
+        }
+        String URL ="jdbc:postgresql://192.168.0.106:5432/rlvd";
+        String USER="admin";
+        String PASSWORD="admin";
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
